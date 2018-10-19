@@ -39,8 +39,8 @@
   'oa'    - set to Orange Alert (clock flashes orange) - alert mode
   'co'    - set Clock Option X minute dots
 
-  last change: 13.09.2018 by Michael Muehl
-  changed: adapt to xBee control and add precenece detection with tasker, set names for xBee 
+  last change: 19.10.2018 by Michael Muehl
+  changed: adapt to xBee control and add precenece detection with tasker, set names for xBee, delete I2C
 */
 #define Version "1.1"
 
@@ -64,11 +64,6 @@
 
 #define BUSError      8 // Bus error
 #define xbeError     13 // Bus error
-
-// I2C IOPort definition
-byte I2CFound = 0;
-byte I2CTransmissionResult = 0;
-#define I2CPort   0x20  // I2C Adress MCP23017
 
 // DEFINES
 #define clockTime     500 // ms Clock Abfragezeit
