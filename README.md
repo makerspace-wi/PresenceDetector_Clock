@@ -5,4 +5,4 @@ This code supports an Arduino PRO mini located on a Multi-Purpose PCB which was 
 Major function of this application is an emulated Analog clock build with 60 RGB-LEDs mounted in a circle with a diameter of about 40cm
 
 ![](images/2018/10/Screenshot 2018-10-19 23.53.14.png)
-![](images/2018/10/Screenshot 2018-10-19 23.57.21.png)
+<img src='images/2018/10/Screenshot 2018-10-19 23.57.21.png' width='400' height='' >
