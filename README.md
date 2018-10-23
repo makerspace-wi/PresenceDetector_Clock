@@ -18,7 +18,6 @@ The clock will accept following commands which are received via Zigbee Network o
 
 ### Receiving Commands
 
-
 Command  |  Description
 --|--
 time  |  Set new Time (format time2018,09,12,12,22,00)
@@ -29,7 +28,7 @@ am  |  ambient mode (clock shows defined color)
 ga  |  alert mode - Green Alert (clock flashes orange)
 oa  |  alert mode - orange alert (clock flashes orange)
 co  |  set Clock Option X minute dots
-<br>
+
 ### Sending Commands
 
 String sent   |  Description
