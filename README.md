@@ -14,20 +14,24 @@ The second board is an universal Power supply and provides 3 indication LEDs and
 Major function of this application is an emulated Analog clock build with 60 RGB-LEDs mounted in a circle with a diameter of about 40 cm.
 <br>The Hour, Minute and Second Pointers are simulated by a small different colored Areas projected to the wall.
 
-<br>
-The clock will react on following Commands which are received via Zigbee Network on the serial Port.
+The clock will accept following commands which are received via Zigbee Network on the serial Port.
+
+### Receiving Commands
 
 
-
-
-Commands  |  Description
+Command  |  Description
 --|--
-TIME  |  Set new Time (Format is 'TIMEY,M,D,H,M,S')
-CM  |  Set Clock Mode
-CC  |  show color (rgb) cycle
-BM  |  bouncing mode (shows bouncing colors)
-AM  |  ambient mode (clock shows defined color)
-GA  |  alert mode - Green Alert (clock flashes orange)
-OA  |  alert mode - orange alert (clock flashes orange)
-CO  |  set Clock Option X minute dots
-  |  
+time  |  Set new Time (format time2018,09,12,12,22,00)
+cm  |  Set Clock Mode
+cc  |  show color (rgb) cycle
+bm  |  bouncing mode (shows bouncing colors)
+am  |  ambient mode (clock shows defined color)
+ga  |  alert mode - Green Alert (clock flashes orange)
+oa  |  alert mode - orange alert (clock flashes orange)
+co  |  set Clock Option X minute dots
+<br>
+### Sending Commands
+String sent   |  Description
+--|--  
+MOVE  |  RADAR Sensor detected movement
+SENSOR;POR  |  sent after Power Up in order to get Time Stamp
