@@ -12,7 +12,7 @@ The second board is an universal Power supply and provides 3 indication LEDs and
 <img src='images/2018/10/Screenshot 2018-10-19 23.57.21.png' width='50%' align="middle">
 <br><br>
 Major function of this application is an emulated Analog clock build with 60 RGB-LEDs mounted in a circle with a diameter of about 40 cm.
-<br>The Hour, Minute and Second Pointers are simulated by a small different colored Areas projected to the wall.
+<br>The Hour, Minute and Second Pointers are simulated by small different colored Areas projected to the wall.
 
 The clock will accept following commands which are received via Zigbee Network on the serial Port.
 
@@ -31,6 +31,7 @@ oa  |  alert mode - orange alert (clock flashes orange)
 co  |  set Clock Option X minute dots
 <br>
 ### Sending Commands
+
 String sent   |  Description
 --|--  
 MOVE  |  RADAR Sensor detected movement
