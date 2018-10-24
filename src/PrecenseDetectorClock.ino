@@ -40,10 +40,11 @@
   'co'    - set Clock Option X minute dots
 
   last change: 13.09.2018 by Michael Muehl
-  changed: adapt to xBee control and add precenece detection with tasker, set names for xBee 
+  changed: adapt to xBee control and add precenece detection with tasker, set names for xBee
 */
 #define Version "1.1"
 
+#include <Arduino.h>
 #include <TaskScheduler.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h>
