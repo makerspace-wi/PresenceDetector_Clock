@@ -252,6 +252,7 @@ void lightCallback() {
 }
 
 void debounceCallback() {
+  tD.disable();
   if (inPin == 1 && digitalRead(BUTTON_PIN1) == LOW) {
     ++mode;
     if (mode > 3) mode = 0;
@@ -266,7 +267,6 @@ void debounceCallback() {
     precense();
   }
   inPin = 0;
-  tD.disable();
 }
 
 void pixelCallback() {   // Pixel 50ms Tick
