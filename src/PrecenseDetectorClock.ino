@@ -203,6 +203,7 @@ void setup() {
   runner.addTask(tP);
   runner.addTask(tL);
   runner.addTask(tD);
+  runner.addTask(tR);
 
   lasttime = millis();
   currenttime = millis();
