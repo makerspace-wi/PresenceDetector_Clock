@@ -213,6 +213,7 @@ void setup() {
   Serial.print("+++"); //Starting the request of IDENT
   tP.enable();
   tL.enable();
+  tR.enable();
 }
 
 // FUNCTIONS (Tasks) ----------------------------
