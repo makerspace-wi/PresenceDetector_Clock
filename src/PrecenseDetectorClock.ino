@@ -39,10 +39,11 @@
   'oa'    - set to Orange Alert (clock flashes orange) - alert mode
   'co'    - set Clock Option X minute dots
 
-  last change: 19.10.2018 by Michael Muehl
+  last change: 20.01.2019 by Michael Muehl
   changed: adapt to xBee control and add precenece detection with tasker, set names for xBee, delete I2C
+           changed debounce for signal change or set time for next signal check
 */
-#define Version "1.1"
+#define Version "1.2"
 
 #include <TaskScheduler.h>
 #include <Wire.h>
@@ -92,8 +93,9 @@ void debounceCallback();   // Task to let LED blink - added by D. Haude 08.03.20
 
 // TASKS
 Task tP(clockTime/10, TASK_FOREVER, &pixelCallback); // main task default clock mode
-Task tL(clockTime, TASK_FOREVER, &checkXbee); // main task default clock mode
-Task tD(5000, TASK_FOREVER, &retryPOR);      //added M. Muehl
+Task tL(clockTime, TASK_FOREVER, &checkXbee);        // task for check xBee
+Task tD(5000, TASK_FOREVER, &retryPOR);              // task for debounce; added M. Muehl
+Task tR(10 * SECONDS, TASK_ONCE, &sendREADY);        // task set bit ready2send after wait; added M. Muehl
 
 // VARIABLES
 typedef struct
@@ -160,6 +162,8 @@ byte inPin = 0;
 String inStr = "";  // a string to hold incoming data
 String IDENT = "";  // Machine identifier for remote access control
 byte plplpl = 0;    // send +++ control AT sequenz
+
+boolean ready2send = HIGH;  // ready to send commands = HIGH; added MM
 
 byte preshist1 = 0;  // Presence History 1
 byte preshist2 = 0;  // Presence History 2
@@ -262,24 +266,41 @@ void debounceCallback() {
     if (mode > 3) mode = 0;
   }
 
-  byte temp = (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW);
-  if (temp != preshist1) {
-    if(temp == true) presence();
-    preshist1 = temp;
+  if (ready2send) {
+    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) presence();
+    if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) presence();
+    if (inPin == 4 && digitalRead(BUTTON_PIN3) == LOW) presence();
+    ready2send = LOW;
+    tW.restart();
   }
-
-  temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
-  if (temp != preshist2) {
-    if(temp == true) presence();
-    preshist2 = temp;
-  }
-  temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
-    if (temp != preshist3) {
-      if(temp == true) presence();
-      preshist3 = temp;
-    }
   inPin = 0;
 }
+
+// void debounceCallback() {
+//   tD.disable();
+//   if (inPin == 1 && digitalRead(BUTTON_PIN1) == LOW) {
+//     ++mode;
+//     if (mode > 3) mode = 0;
+//   }
+//
+//   byte temp = (inPin == 2 && digitalRead(BUTTON_PIN2));
+//   if (temp != preshist1) {
+//     if(temp == true) presence();
+//     preshist1 = temp;
+//   }
+//
+//   temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
+//   if (temp != preshist2) {
+//     if(temp == true) presence();
+//     preshist2 = temp;
+//   }
+//   temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
+//     if (temp != preshist3) {
+//       if(temp == true) presence();
+//       preshist3 = temp;
+//     }
+//   inPin = 0;
+// }
 
 void pixelCallback() {   // Pixel 50ms Tick
   if (mode == 0) {      // 45ms  clock mode - show time
@@ -446,6 +467,10 @@ uint32_t Wheel(byte WheelPos) {
     WheelPos -= 170;
     return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
   }
+}
+
+void sendREADY() {
+  ready2send = HIGH;
 }
 
 void presence() {
