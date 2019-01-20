@@ -271,7 +271,7 @@ void debounceCallback() {
     if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) presence();
     if (inPin == 4 && digitalRead(BUTTON_PIN3) == LOW) presence();
     ready2send = LOW;
-    tW.restart();
+    tR.restart();
   }
   inPin = 0;
 }
