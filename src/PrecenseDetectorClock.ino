@@ -161,6 +161,10 @@ String inStr = "";  // a string to hold incoming data
 String IDENT = "";  // Machine identifier for remote access control
 byte plplpl = 0;    // send +++ control AT sequenz
 
+byte preshist1 = 0;  // Presence History 1
+byte preshist2 = 0;  // Presence History 2
+byte preshist3 = 0;  // Presence History 3
+
 // ======>  SET UP AREA <=====
 void setup() {
   //init Serial port
@@ -257,15 +261,23 @@ void debounceCallback() {
     ++mode;
     if (mode > 3) mode = 0;
   }
-  if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
-    precense();
+
+  byte temp = (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW);
+  if (temp != preshist1) {
+    if(temp == true) presence();
+    preshist1 = temp;
   }
-  if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) {
-    precense();
+
+  byte temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
+  if (temp != preshist2) {
+    if(temp == true) presence();
+    preshist2 = temp;
   }
-  if (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW) {
-    precense();
-  }
+  byte temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
+    if (temp != preshist3) {
+      if(temp == true) presence();
+      preshist3 = temp;
+    }
   inPin = 0;
 }
 
@@ -436,7 +448,7 @@ uint32_t Wheel(byte WheelPos) {
   }
 }
 
-void precense() {
+void presence() {
   Serial.println("MOVE");
 }
 // End Funktions --------------------------------
