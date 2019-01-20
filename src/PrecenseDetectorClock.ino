@@ -295,19 +295,19 @@ void debounceCallback() {
 //     if (mode > 3) mode = 0;
 //   }
 //
-//   byte temp = (inPin == 2 && digitalRead(BUTTON_PIN2));
-//   if (temp != preshist1) {
+//   byte temp = digitalRead(BUTTON_PIN2);
+//   if (inPin == 2 && temp != preshist1) {
 //     if(temp == true) presence();
 //     preshist1 = temp;
 //   }
 //
-//   temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
-//   if (temp != preshist2) {
+//   temp = digitalRead(BUTTON_PIN3);
+//   if (inPin == 3 && temp != preshist2) {
 //     if(temp == true) presence();
 //     preshist2 = temp;
 //   }
-//   temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
-//     if (temp != preshist3) {
+//   temp = digitalRead(BUTTON_PIN4);
+//     if (inPin == 4 && temp != preshist3) {
 //       if(temp == true) presence();
 //       preshist3 = temp;
 //     }
