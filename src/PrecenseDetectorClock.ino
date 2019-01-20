@@ -268,12 +268,12 @@ void debounceCallback() {
     preshist1 = temp;
   }
 
-  byte temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
+  temp = (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW);
   if (temp != preshist2) {
     if(temp == true) presence();
     preshist2 = temp;
   }
-  byte temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
+  temp = (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW);
     if (temp != preshist3) {
       if(temp == true) presence();
       preshist3 = temp;
