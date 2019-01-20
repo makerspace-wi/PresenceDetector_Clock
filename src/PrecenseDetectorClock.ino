@@ -269,11 +269,21 @@ void debounceCallback() {
   }
 
   if (ready2send) {
-    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) presence();
-    if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) presence();
-    if (inPin == 4 && digitalRead(BUTTON_PIN3) == LOW) presence();
-    ready2send = LOW;
-    tR.restart();
+    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
+      presence();
+      ready2send = LOW;
+      tR.restart();
+    }
+    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
+      presence();
+      ready2send = LOW;
+      tR.restart();
+    }
+    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
+      presence();
+      ready2send = LOW;
+      tR.restart();
+    }
   }
   inPin = 0;
 }
