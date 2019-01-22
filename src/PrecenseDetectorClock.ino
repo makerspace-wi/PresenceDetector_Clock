@@ -95,7 +95,7 @@ void debounceCallback();   // Task to let LED blink - added by D. Haude 08.03.20
 Task tP(clockTime/10, TASK_FOREVER, &pixelCallback); // main task default clock mode
 Task tL(clockTime, TASK_FOREVER, &checkXbee);        // task for check xBee
 Task tD(5000, TASK_FOREVER, &retryPOR);              // task for debounce; added M. Muehl
-Task tR(10 * SECONDS, TASK_ONCE, &sendREADY);        // task set bit ready2send after wait; added M. Muehl
+Task tR(1, TASK_ONCE, &sendREADY);                   // task set bit ready2send after wait; added M. Muehl
 
 // VARIABLES
 typedef struct
@@ -165,10 +165,6 @@ byte plplpl = 0;    // send +++ control AT sequenz
 
 boolean ready2send = HIGH;  // ready to send commands = HIGH; added MM
 
-byte preshist1 = 0;  // Presence History 1
-byte preshist2 = 0;  // Presence History 2
-byte preshist3 = 0;  // Presence History 3
-
 // ======>  SET UP AREA <=====
 void setup() {
   //init Serial port
@@ -213,7 +209,6 @@ void setup() {
   Serial.print("+++"); //Starting the request of IDENT
   tP.enable();
   tL.enable();
-  tR.enable();
 }
 
 // FUNCTIONS (Tasks) ----------------------------
@@ -270,49 +265,23 @@ void debounceCallback() {
 
   if (ready2send) {
     if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
-      presence();
       ready2send = LOW;
-      tR.restart();
+      tR.restartDelayed(10 * SECONDS);
+      presence();
     }
-    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
-      presence();
+    if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) {
       ready2send = LOW;
-      tR.restart();
+      tR.restartDelayed(10 * SECONDS);
+      presence();
     }
-    if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
-      presence();
+    if (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW) {
       ready2send = LOW;
-      tR.restart();
+      tR.restartDelayed(10 * SECONDS);
+      presence();
     }
   }
   inPin = 0;
 }
-
-// void debounceCallback() {
-//   tD.disable();
-//   if (inPin == 1 && digitalRead(BUTTON_PIN1) == LOW) {
-//     ++mode;
-//     if (mode > 3) mode = 0;
-//   }
-//
-//   byte temp = digitalRead(BUTTON_PIN2);
-//   if (inPin == 2 && temp != preshist1) {
-//     if(temp == true) presence();
-//     preshist1 = temp;
-//   }
-//
-//   temp = digitalRead(BUTTON_PIN3);
-//   if (inPin == 3 && temp != preshist2) {
-//     if(temp == true) presence();
-//     preshist2 = temp;
-//   }
-//   temp = digitalRead(BUTTON_PIN4);
-//     if (inPin == 4 && temp != preshist3) {
-//       if(temp == true) presence();
-//       preshist3 = temp;
-//     }
-//   inPin = 0;
-// }
 
 void pixelCallback() {   // Pixel 50ms Tick
   if (mode == 0) {      // 45ms  clock mode - show time
