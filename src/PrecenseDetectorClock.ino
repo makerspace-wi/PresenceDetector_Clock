@@ -70,7 +70,8 @@
 #define clockTime     500 // ms Clock Abfragezeit
 #define porTime         5 // wait seconds for sending Ident + POR
 #define SECONDS      1000 // multiplier for second
-#define PIXEL_12OCLOCK 30 //first pixel (12 o'clock)
+#define PIXEL_12OCLOCK 30 // first pixel (12 o'clock)
+#define moveTime  20 * SECONDS // signal lenght after recognizing move
 
 // CREATE OBJECTS
 // Parameter 1 = number of pixels in strip
@@ -266,17 +267,17 @@ void debounceCallback() {
   if (ready2send) {
     if (inPin == 2 && digitalRead(BUTTON_PIN2) == LOW) {
       ready2send = LOW;
-      tR.restartDelayed(10 * SECONDS);
+      tR.restartDelayed(moveTime);
       presence();
     }
     if (inPin == 3 && digitalRead(BUTTON_PIN3) == LOW) {
       ready2send = LOW;
-      tR.restartDelayed(10 * SECONDS);
+      tR.restartDelayed(moveTime);
       presence();
     }
     if (inPin == 4 && digitalRead(BUTTON_PIN4) == LOW) {
       ready2send = LOW;
-      tR.restartDelayed(10 * SECONDS);
+      tR.restartDelayed(moveTime);
       presence();
     }
   }
