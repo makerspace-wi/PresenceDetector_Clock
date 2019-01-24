@@ -24,20 +24,20 @@
  *
  * 07 Nov 2013 - initial release
  *
- ----- adapted to our system:
+ -Parameter of our system-------------:
   Commands to Raspi
-  'sensor?'    - from xBee (=Ident)
-  'POR'        - machine power on reset (Ident;por)
+  'SENSOR'  - from xBee (=Ident)
+  'POR'     - machine power on reset (Ident;por)
 
   Commands from Raspi
-  'time'  - format time2018,09,12,12,22,00
-  'cm'    - set to Clock Mode
-  'cc'    - set to Color (rgb) Cycle
-  'bm'    - set to Bouncing Mode (shows bouncing colors)
-  'am'    - set to Ambient Mode (clock shows defined color)
-  'ga'    - set to Green Alert (clock flashes orange) - alert mode
-  'oa'    - set to Orange Alert (clock flashes orange) - alert mode
-  'co'    - set Clock Option X minute dots
+  'time'    - format time2018,09,12,12,22,00
+  'cm'      - set to Clock Mode
+  'cc'      - set to Color (rgb) Cycle
+  'bm'      - set to Bouncing Mode (shows bouncing colors)
+  'am'      - set to Ambient Mode (clock shows defined color)
+  'ga'      - set to Green Alert (clock flashes orange) - alert mode
+  'oa'      - set to Orange Alert (clock flashes orange) - alert mode
+  'co'      - set Clock Option X minute dots
 
   last change: 20.01.2019 by Michael Muehl
   changed: adapt to xBee control and add precenece detection with tasker, set names for xBee, delete I2C
@@ -45,6 +45,7 @@
 */
 #define Version "1.2"
 
+#include <Arduino.h>
 #include <TaskScheduler.h>
 #include <Wire.h>
 #include <Adafruit_NeoPixel.h>
@@ -90,7 +91,7 @@ RTC_DS1307 RTC;  //Create the DS1307 object
 void checkXbee();        // Task connect to xBee Server
 void pixelCallback();    // Task for clock time
 void lightCallback();    // Task for switch light on
-void debounceCallback();   // Task to let LED blink - added by D. Haude 08.03.2017
+void debounceCallback(); // Task to let LED blink - added by D. Haude 08.03.2017
 
 // TASKS
 Task tP(clockTime/10, TASK_FOREVER, &pixelCallback); // main task default clock mode
