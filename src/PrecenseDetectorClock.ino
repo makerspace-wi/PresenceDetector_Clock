@@ -41,7 +41,7 @@
 
   last change: 20.01.2019 by Michael Muehl
   changed: adapt to xBee control and add precenece detection with tasker, set names for xBee, delete I2C
-           changed debounce for signal change or set time for next signal check
+           changed debounce for signal change or set time for next signal check.
 */
 #define Version "1.2"
 
