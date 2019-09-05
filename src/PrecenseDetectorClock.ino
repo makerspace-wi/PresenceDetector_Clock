@@ -43,7 +43,7 @@
   changed: adapt to xBee control and add precenece detection with tasker, set names for xBee, delete I2C
            changed debounce for signal change or set time for next signal check.
 */
-#define Version "1.2"
+#define Version "1.2" // (Test =1.x ==> 1.3)
 
 #include <Arduino.h>
 #include <TaskScheduler.h>
